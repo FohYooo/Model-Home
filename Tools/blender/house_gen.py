@@ -106,9 +106,9 @@ class MeshBuilder:
             bmesh.ops.rotate(tmp, cent=p, matrix=Matrix.Rotation(rot_z, 3, "Z"), verts=tmp.verts)
         self._merge(tmp, mat)
 
-    def cylinder(self, centre, radius, depth, mat, axis="Z", segments=24, radius_top=None):
+    def cylinder(self, centre, radius, depth, mat, axis="Z", segments=24, radius_top=None, caps=True):
         tmp = bmesh.new()
-        bmesh.ops.create_cone(tmp, cap_ends=True, cap_tris=False, segments=segments, radius1=radius,
+        bmesh.ops.create_cone(tmp, cap_ends=caps, cap_tris=False, segments=segments, radius1=radius,
                               radius2=radius if radius_top is None else radius_top, depth=depth)
         if axis == "X":
             bmesh.ops.rotate(tmp, cent=(0, 0, 0), matrix=Matrix.Rotation(math.pi / 2, 3, "Y"), verts=tmp.verts)
@@ -359,7 +359,7 @@ def build_furniture(root):
                 mb.cylinder((x, y, 0.355), 0.012, 0.71, "M_Metal", segments=10)
         mb.box((2.42, 3.32, 0.74), (2.58, 3.48, 0.76), "M_Metal")         # lamp base
         mb.cylinder((2.5, 3.4, 0.93), 0.008, 0.36, "M_Metal", segments=8)  # lamp stem
-        mb.cylinder((2.5, 3.4, 1.12), 0.09, 0.14, "M_Lampshade", radius_top=0.06)
+        mb.cylinder((2.5, 3.4, 1.12), 0.09, 0.14, "M_Lampshade", radius_top=0.06, caps=False)
     obj_from("GuardTable", guard_table)
 
     def folding_chair(mb):
@@ -410,7 +410,7 @@ def build_furniture(root):
     def floor_lamp(mb):
         mb.cylinder((7.6, 0.6, 0.015), 0.16, 0.03, "M_Metal")
         mb.cylinder((7.6, 0.6, 0.8), 0.012, 1.5, "M_Metal", segments=10)
-        mb.cylinder((7.6, 0.6, 1.5), 0.22, 0.3, "M_Lampshade", radius_top=0.16)
+        mb.cylinder((7.6, 0.6, 1.5), 0.22, 0.3, "M_Lampshade", radius_top=0.16, caps=False)
     obj_from("INT_LivingLamp", floor_lamp)
 
     def photo(name, centre, facing):
@@ -462,7 +462,7 @@ def build_furniture(root):
     def desk_lamp(mb):
         mb.cylinder((10.7, 0.4, 0.76), 0.07, 0.02, "M_Metal")
         mb.cylinder((10.7, 0.4, 0.95), 0.008, 0.38, "M_Metal", segments=8)
-        mb.cylinder((10.7, 0.45, 1.13), 0.09, 0.12, "M_Lampshade", radius_top=0.05)
+        mb.cylinder((10.7, 0.45, 1.13), 0.09, 0.12, "M_Lampshade", radius_top=0.05, caps=False)
     obj_from("INT_StudyLamp", desk_lamp)
 
     def bookshelf(mb):
@@ -538,7 +538,7 @@ def build_furniture(root):
     def pendant(mb):
         mb.cylinder((5.5, 7.5, 2.37), 0.004, 0.46, "M_Ink", segments=6)
         mb.cylinder((5.5, 7.5, 2.1), 0.03, 0.08, "M_Metal", radius_top=0.2 * 0 + 0.03)
-        mb.cylinder((5.5, 7.5, 2.02), 0.24, 0.14, "M_Lampshade", radius_top=0.05)
+        mb.cylinder((5.5, 7.5, 2.02), 0.24, 0.14, "M_Lampshade", radius_top=0.05, caps=False)
     obj_from("KitchenPendant", pendant)
 
     def bench(mb):

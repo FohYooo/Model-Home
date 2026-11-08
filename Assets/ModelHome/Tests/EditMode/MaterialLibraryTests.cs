@@ -59,6 +59,13 @@ namespace ModelHome.Tests
                 Assert.AreEqual(0.55f, Load(n).GetFloat("_Smoothness"), 1e-4, n);
         }
 
+        [Test] public void LampshadeGlows()
+        {
+            var m = Load("M_Lampshade");
+            Assert.IsTrue(m.IsKeywordEnabled("_EMISSION"));
+            Assert.Greater(m.GetColor("_EmissionColor").maxColorComponent, 0.5f);
+        }
+
         [Test] public void ClothIsDoubleSided()
         {
             foreach (var n in new[] { "M_Cloth_Shirt", "M_Cloth_Trousers", "M_Cloth_Knit", "M_Cloth_Denim", "M_Cloth_Tee" })

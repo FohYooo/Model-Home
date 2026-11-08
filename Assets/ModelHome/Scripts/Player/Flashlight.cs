@@ -11,7 +11,7 @@ namespace ModelHome
         public AudioClip clickClip;
         public PlayerController player;
         [Tooltip("Layers that block the beam for IsLit checks")]
-        public LayerMask occluders = ~0;
+        public LayerMask occluders = Physics.DefaultRaycastLayers; // figures sit on Ignore Raycast
 
         Light spot;
         AudioSource source;
@@ -21,20 +21,26 @@ namespace ModelHome
 
         void Awake()
         {
+            Configure();
+            source = GetComponent<AudioSource>();
+            if (source == null) source = gameObject.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+            source.spatialBlend = 0f;
+        }
+
+        /// <summary>Applies the torch's light settings; also called by the scene builder so edit-mode previews match.</summary>
+        public void Configure()
+        {
             spot = GetComponent<Light>();
             spot.type = LightType.Spot;
             spot.range = 18f;
             spot.spotAngle = 55f;
             spot.innerSpotAngle = 30f;
-            spot.intensity = 6f;
+            spot.intensity = 2.2f; // inverse-square: 6 blew faces out to white at 1 m
             spot.color = new Color(1f, 0.957f, 0.878f);
             spot.shadows = LightShadows.Soft;
             spot.shadowStrength = 0.9f;
             spot.renderMode = LightRenderMode.ForcePixel;
-            source = GetComponent<AudioSource>();
-            if (source == null) source = gameObject.AddComponent<AudioSource>();
-            source.playOnAwake = false;
-            source.spatialBlend = 0f;
         }
 
         void Update()

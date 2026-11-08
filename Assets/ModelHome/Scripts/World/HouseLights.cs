@@ -9,6 +9,7 @@ namespace ModelHome
     {
         public Light[] lights;
         public Light pendant;
+        public Renderer[] shades;
         public bool PoweredDown { get; private set; }
         float nextFlicker;
 
@@ -37,6 +38,7 @@ namespace ModelHome
         {
             PoweredDown = true;
             foreach (var l in lights.Where(l => l != null)) l.enabled = false;
+            if (shades != null) foreach (var s in shades) ShadeGlow.Set(s, false);
             foreach (var sw in FindObjectsByType<LampSwitch>(FindObjectsSortMode.None)) sw.PoweredDown = true;
         }
     }

@@ -16,7 +16,7 @@ namespace ModelHome
             current = null;
             if (player == null || player.InputEnabled)
             {
-                if (Physics.Raycast(transform.position, transform.forward, out var hit, reach, ~0, QueryTriggerInteraction.Collide))
+                if (Physics.Raycast(transform.position, transform.forward, out var hit, reach, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
                 {
                     var it = hit.collider.GetComponentInParent<Interactable>();
                     if (it != null && it.Enabled) current = it;

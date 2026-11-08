@@ -285,7 +285,10 @@ def clothing_planes(J, f, kh):
     bisect the clothes mesh (clean straight edges) and to decide each face's garment."""
     neck_axis = (J["head_base"] - J["neck"]).normalized()
     planes = {"neckline": (J["neck"] - neck_axis * 0.004 * kh,
-                           (neck_axis + Vector((0, -0.45, 0))).normalized())}
+                           (neck_axis + Vector((0, -0.25, 0))).normalized()),
+              # the neckline only applies within this radius of the neck axis, so the infinite cut
+              # plane does not strip cloth from the shoulder tops (which sit near neck height)
+              "collar": (J["neck"], neck_axis, 0.095 * kh)}
     long_sleeve = f["sleeve"] > 0.5
     for s in ("L", "R"):
         if long_sleeve:
@@ -302,6 +305,14 @@ def clothing_planes(J, f, kh):
     return planes
 
 
+def in_collar(p, planes):
+    """Bare skin at the neck: above the neckline plane AND near the neck axis."""
+    co, axis, radius = planes["collar"]
+    d = Vector(p) - co
+    radial = (d - axis * d.dot(axis)).length
+    return radial < radius and above(p, planes["neckline"])
+
+
 def above(p, plane):
     co, no = plane
     return (Vector(p) - co).dot(no) > 0
@@ -315,12 +326,12 @@ def garment_for(p, label, f, planes):
         if base == "hand":
             return None
         if base in ("neck", "torso"):
-            return None if above(p, planes["neckline"]) else f["top"]
+            return None if in_collar(p, planes) else f["top"]
         return f["top"]
     if base in ("hand",):
         return None
     if base in ("neck", "torso"):
-        if above(p, planes["neckline"]):
+        if in_collar(p, planes):
             return None
         if f.get("pinafore"):
             return f["pinafore"] if not above(p, planes["chest"]) else f["top"]
@@ -351,7 +362,10 @@ def build_clothes(body, J, bones, f, kh):
     planes = clothing_planes(J, f, kh)
     bm = bmesh.new()
     bm.from_mesh(me)
-    for co, no in planes.values():
+    for plane in planes.values():
+        if len(plane) != 2:
+            continue
+        co, no = plane
         bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], dist=1e-5,
                                plane_co=co, plane_no=no, clear_inner=False, clear_outer=False)
     bm.faces.ensure_lookup_table()

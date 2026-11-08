@@ -14,7 +14,7 @@ namespace ModelHome.EditorTools
 
         class Spec
         {
-            public string Name, Color = "#FFFFFF", PolyHaven, BaseMap;
+            public string Name, Color = "#FFFFFF", PolyHaven, BaseMap, Emission;
             public bool UsePhColour;     // use the Poly Haven diffuse as base map (else flat colour + surface detail)
             public float Smoothness = 0.5f, Metallic, Alpha = 1f;
             public bool Transparent, DoubleSided;
@@ -43,7 +43,7 @@ namespace ModelHome.EditorTools
             new Spec { Name = "M_Skirting_Paint", Color = "#F4F2EE", Smoothness = 0.4f },
             new Spec { Name = "M_Metal", Color = "#8C8F93", Metallic = 1f, Smoothness = 0.6f },
             new Spec { Name = "M_Glass", Color = "#B8C8D0", Transparent = true, Alpha = 0.15f, Smoothness = 0.95f },
-            new Spec { Name = "M_Lampshade", Color = "#F3E9D2", Smoothness = 0.2f, DoubleSided = true },
+            new Spec { Name = "M_Lampshade", Color = "#F3E9D2", Smoothness = 0.2f, DoubleSided = true, Emission = "#FFD9A0" },
             new Spec { Name = "M_Paper", Color = "#F2F0EA", Smoothness = 0.1f },
             new Spec { Name = "M_Photo_Family", BaseMap = "Assets/ModelHome/Textures/Photos/photo_family.png", Smoothness = 0.45f },
             new Spec { Name = "M_Newspaper", Color = "#D9D4C7", Smoothness = 0.1f, DoubleSided = true },
@@ -146,8 +146,14 @@ namespace ModelHome.EditorTools
             }
             m.SetFloat("_Cull", s.DoubleSided ? 0f : 2f);
             m.doubleSidedGI = s.DoubleSided;
-            m.SetColor("_EmissionColor", Color.black);
-            Keyword(m, "_EMISSION", false);
+            var glowColor = Color.black;
+            bool emits = s.Emission != null && ColorUtility.TryParseHtmlString(s.Emission, out glowColor);
+            m.SetColor("_EmissionColor", emits ? glowColor * 1.6f : Color.black);
+            Keyword(m, "_EMISSION", emits);
+            // URP's material validation keeps _EMISSION only with an emissive GI flag; realtime GI is off in
+            // this project, so RealtimeEmissive means "glows, never baked" (the lamps are switchable).
+            m.globalIlluminationFlags = emits ? MaterialGlobalIlluminationFlags.RealtimeEmissive
+                                              : MaterialGlobalIlluminationFlags.EmissiveIsBlack;
             EditorUtility.SetDirty(m);
         }
 

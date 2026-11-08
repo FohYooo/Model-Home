@@ -8,12 +8,21 @@ namespace ModelHome
     {
         public AudioClip clip;
         public Hud hud;
-        protected Interactable it;
+        Interactable cachedIt;
         AudioSource source;
+
+        /// <summary>Lazy so edit-mode calls (the scene builder applying Lap 1) work before Awake.</summary>
+        protected Interactable it
+        {
+            get
+            {
+                if (cachedIt == null) cachedIt = GetComponent<Interactable>();
+                return cachedIt;
+            }
+        }
 
         protected virtual void Awake()
         {
-            it = GetComponent<Interactable>();
             it.Interacted += _ => OnUse();
             source = gameObject.AddComponent<AudioSource>();
             source.playOnAwake = false;

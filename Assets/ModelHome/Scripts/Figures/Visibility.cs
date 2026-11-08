@@ -8,7 +8,7 @@ namespace ModelHome
 
         /// <summary>True if the renderer is inside the camera frustum and at least one of its sample points
         /// (bounds centre, top and two upper corners) has a clear line of sight from the camera.</summary>
-        public static bool IsSeen(Renderer r, Camera cam, int occluderMask = ~0)
+        public static bool IsSeen(Renderer r, Camera cam, int occluderMask = Physics.DefaultRaycastLayers)
         {
             if (r == null || cam == null) return false;
             GeometryUtility.CalculateFrustumPlanes(cam, Planes);

@@ -21,6 +21,7 @@
 - Blender: `/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --python <script> -- <args>`. Scripts in `Tools/blender/`.
 - Python helper scripts run with `python3 -I`.
 - Original content only: no names, likenesses or assets from existing games.
+- Target: Windows x64 standalone player rendering on the GPU (Direct3D12, Direct3D11 fallback); the Mac editor is the dev environment (user requirement 2026-11-08).
 - No death/fail state, no sprint, no menus beyond the title card (spec §1 out-of-scope list).
 - Git: commits only as `FohYooo` / `353847037+FohYooo@users.noreply.github.com` (local config). **No `Co-Authored-By` trailers** (workspace `CLAUDE.md` forbids crediting other GitHub accounts). Never push.
 - Figure object-name contract (Blender → Unity): root empty `Figure_<Variant>`; children `Body`, `Clothes`, `Head`; `Head` children `Eye_L`, `Eye_R`, `Lid_L`, `Lid_R`, `Hair` (absent on Baby), and optional `Prop` under root.
@@ -461,3 +462,23 @@ Sequence (exact): `PowerCut()` + start `drone_ending` (volume 0 → 0.6 over 8 s
 - [ ] **Step 3: Console + performance** — `console-get-logs`: zero errors, zero warnings from `ModelHome`; Game view 1920×1080 Stats ≥ 45 fps on the M3 with flashlight on in the kitchen.
 - [ ] **Step 4: Tune** only if a check fails or a screenshot reads wrong (too dark to see figures → raise moonlight to ≤ 0.15 or lamp intensity; figures look plastic → skin smoothness 0.45–0.6 range); re-run Steps 2–3.
 - [ ] **Step 5: Write `docs/verification/2026-11-08-playthrough.md`** with results and the screenshot list; commit — `test: play-through verification of the Model Home demo`.
+
+---
+
+### Task 13: Windows PC build on the GPU (user requirement, 2026-11-08)
+
+**Files:**
+- Create: `Assets/ModelHome/Editor/BuildWindows.cs`
+- Test: `Assets/ModelHome/Tests/EditMode/WindowsBuildSettingsTests.cs`
+
+**Interfaces:**
+- Produces: `ModelHome.EditorTools.BuildWindows.ApplySettings()` (idempotent) and `BuildWindows.Build()` (`[MenuItem("Model Home/4. Build Windows x64")]`, batchmode-callable) → `Builds/Windows/ModelHome.exe`.
+
+- [ ] **Step 0: Prerequisite** — Unity "Windows Build Support (Mono)" module for 6000.3.28f1 installed (user approves the download; Unity Hub → Installs → Add modules, or `"/Applications/Unity Hub.app/Contents/MacOS/Unity Hub" -- --headless install-modules --version 6000.3.28f1 --module windows-mono`).
+- [ ] **Step 1: Write failing tests** — `GraphicsApis_D3D12ThenD3D11`: `PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64) == false` and `GetGraphicsAPIs(StandaloneWindows64)` equals `{Direct3D12, Direct3D11}`; `Lightmapper_IsGpu`: the scene's `LightingSettings.lightmapper == ProgressiveGPU`; `Windows_Arch_x64_Il2CppNotRequired`: scripting backend Mono for Standalone; `Fullscreen_Default`: `PlayerSettings.fullScreenMode == FullScreenWindow`, default 1920×1080; `VSync_On`: every quality level `vSyncCount == 1`.
+- [ ] **Step 2: Run — expect FAIL.**
+- [ ] **Step 3: Implement `ApplySettings()`** per the tests (also `PlayerSettings.productName = "Model Home"`, `companyName = "FohYooo"`) and `Build()` (`BuildPipeline.BuildPlayer` with the demo scene, `BuildTarget.StandaloneWindows64`, `BuildOptions.None`; throws if `report.summary.result != Succeeded`).
+- [ ] **Step 4: Run — expect PASS.**
+- [ ] **Step 5: Build** — `Build()` via MCP or batchmode `-buildTarget Win64 -executeMethod ModelHome.EditorTools.BuildWindows.Build`. Expected: `Builds/Windows/ModelHome.exe`, `UnityPlayer.dll`, `ModelHome_Data/` exist; build log has 0 errors.
+- [ ] **Step 6: Dedicated-GPU check** — `strings Builds/Windows/UnityPlayer.dll | grep -E "NvOptimusEnablement|AmdPowerXpressRequestHighPerformance"` shows both exports (hybrid laptops then pick the discrete GPU). If absent, record it and tell the user (fix needs a tiny native plugin built on Windows).
+- [ ] **Step 7: Hand-off** — the exe cannot run on the Mac; the user runs it on their PC. Commit — `feat: Windows x64 GPU build settings and build script` (`Builds/` stays gitignored).

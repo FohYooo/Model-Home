@@ -15,9 +15,12 @@ Success for the demo:
   overtly scary happened.
 - The ending lands without a single conventional jump-scare sound sting doing the work.
 - Runs smoothly in the Unity editor on the user's Mac (Apple Silicon), no console errors.
+- Ships as a **Windows PC (x64) build that renders on the GPU**: Direct3D 12 with Direct3D 11
+  fallback, GPU lightmapper for bakes, dedicated GPU preferred on hybrid-graphics laptops
+  (added by the user on 2026-11-08).
 
 Out of scope for the demo: upstairs, death/fail states, saving, menus beyond a title card,
-builds for other platforms, voice acting.
+builds for platforms other than Windows x64 (and the editor), voice acting.
 
 ## 2. Experience
 

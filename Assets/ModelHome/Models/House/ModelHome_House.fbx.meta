@@ -3,11 +3,96 @@ guid: 61f8eba0d90e74bdc90dff39d5cde6f7
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cabinet_Wood
+    second: {fileID: 2100000, guid: a211d8fa183194f5cb66f776d949b5ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Ceiling
+    second: {fileID: 2100000, guid: ed0b34179f8fe4d0aa819659f560daac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Counter_Marble
+    second: {fileID: 2100000, guid: 815ade5b6a468410796136996111f94a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Door_Paint
+    second: {fileID: 2100000, guid: b23bf8c1a96b04498b4240419a7e47f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Fabric_Sofa
+    second: {fileID: 2100000, guid: b2cc5e087ccb24364bad0266bbf04d62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Floor_Wood
+    second: {fileID: 2100000, guid: 645e2ad70623347b7a8b661ef15d16ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Glass
+    second: {fileID: 2100000, guid: fe41ad60251f0424ab529bb7080a76b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Ground_Dirt
+    second: {fileID: 2100000, guid: efd618373b57b45b8b670fdd6cd63fda, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Ink
+    second: {fileID: 2100000, guid: a5932b9d5024d480f9a6882f3e6c216f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Lampshade
+    second: {fileID: 2100000, guid: b76f2d8a4639d4d3e9b8810908f32f4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Metal
+    second: {fileID: 2100000, guid: b45628d122b5c4bfa9f0d0c7b604940d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Paper
+    second: {fileID: 2100000, guid: bb0c75be0965f463cadfaf323b407d6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Photo_Family
+    second: {fileID: 2100000, guid: a4335d1c1aaa3404e80b592c2d7de4bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Rug
+    second: {fileID: 2100000, guid: 0499af6b7add2450a8e563cd33f54669, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Skirting_Paint
+    second: {fileID: 2100000, guid: 46059b1eefc2946008f6f14263a46709, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tape
+    second: {fileID: 2100000, guid: 933d19527b1e245e5a3df78a69f5dc4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Wall_Plaster
+    second: {fileID: 2100000, guid: 806c7add46b2248d1aa32a1e6f74a746, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
     searchTexturesGlobally: 0
   animations:
@@ -31,23 +116,23 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
     importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -80,7 +165,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []

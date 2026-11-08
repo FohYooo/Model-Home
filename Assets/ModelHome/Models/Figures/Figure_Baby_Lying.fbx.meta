@@ -3,11 +3,41 @@ guid: 3cc6b82b8525f4c00b10bd1dcf4e735b
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cloth_Blanket
+    second: {fileID: 2100000, guid: cfcddb47c71b847a2b8185c60118b481, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cloth_Tee
+    second: {fileID: 2100000, guid: 6554c7521a68d4e518b4784e84eeb4d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cornea
+    second: {fileID: 2100000, guid: 9ff0a4cc513ac48d4bfdddf43bd869f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Iris_DarkGrey
+    second: {fileID: 2100000, guid: c94e37059cc7445dfa1831a1145c4441, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Sclera
+    second: {fileID: 2100000, guid: 0b9d3824a64b84b4eaff930277da86e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Skin_Baby
+    second: {fileID: 2100000, guid: 36d9b059024c1447c865e102806f634d, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
     searchTexturesGlobally: 0
   animations:
@@ -42,8 +72,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -80,7 +110,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []

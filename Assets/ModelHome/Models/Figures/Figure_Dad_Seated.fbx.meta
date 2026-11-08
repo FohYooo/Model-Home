@@ -3,11 +3,51 @@ guid: 945ba2e279f824b26ab12b80e7d667ad
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cloth_Shirt
+    second: {fileID: 2100000, guid: da6cebc98554a4430867c90ca7896a92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cloth_Trousers
+    second: {fileID: 2100000, guid: 33dac18642ab542c59c341e9a6062f05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cornea
+    second: {fileID: 2100000, guid: 9ff0a4cc513ac48d4bfdddf43bd869f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Hair_Dad
+    second: {fileID: 2100000, guid: 909641afb03f14059bf518604b59b116, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Iris_GreyBlue
+    second: {fileID: 2100000, guid: 93b7861099ce347ab90538f753181260, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Newspaper
+    second: {fileID: 2100000, guid: 4cc0f6d91730c430e912fe1b9a073126, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Sclera
+    second: {fileID: 2100000, guid: 0b9d3824a64b84b4eaff930277da86e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Skin_Dad
+    second: {fileID: 2100000, guid: edecadb044b064bd7b0406bf4d6d25d5, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
     materialLocation: 1
     searchTexturesGlobally: 0
   animations:
@@ -42,8 +82,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -80,7 +120,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []

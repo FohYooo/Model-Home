@@ -70,7 +70,15 @@ namespace ModelHome.EditorTools
             BuildInteractables(house, hud, director);
             BuildProbes();
             director.ApplyLap(director.laps[0]);   // the saved scene shows Lap 1's staging in the editor too
-            OnSceneBuilt?.Invoke(new BuildContext { Director = director, Figures = figures, Hud = hud, Player = player, Torch = torch, Lights = houseLights, Game = game });
+            var ending = game.AddComponent<EndingSequence>();
+            ending.director = director;
+            ending.daughter = figures.First(f => f.Variant == "Daughter_Standing");
+            ending.torch = torch;
+            ending.houseLights = houseLights;
+            ending.hud = hud;
+            ending.player = player;
+            ending.drone = Clip("drone_ending");
+            ending.breath = Clip("breath_slow");
 
             EditorSceneManager.SaveScene(scene, ScenePath);
             var scenes = EditorBuildSettings.scenes.Where(s => s.path != ScenePath).ToList();
@@ -78,20 +86,6 @@ namespace ModelHome.EditorTools
             EditorBuildSettings.scenes = scenes.ToArray();
             if (bake) Lightmapping.BakeAsync();
             Debug.Log("[ModelHome] Demo scene built" + (bake ? " (lightmap bake started)" : ""));
-        }
-
-        /// <summary>Extension point used by later tasks (the ending) to add their components.</summary>
-        public static event System.Action<BuildContext> OnSceneBuilt;
-
-        public class BuildContext
-        {
-            public LapDirector Director;
-            public DisplayFigure[] Figures;
-            public Hud Hud;
-            public PlayerController Player;
-            public Flashlight Torch;
-            public HouseLights Lights;
-            public GameObject Game;
         }
 
         // ------------------------------------------------------------------ house

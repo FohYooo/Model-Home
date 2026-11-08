@@ -127,6 +127,19 @@ namespace ModelHome.Tests
                 Assert.IsNotNull(sw.shade, sw.name);
         }
 
+        [Test] public void EndingSequence_Wired()
+        {
+            var e = All<EndingSequence>().Single();
+            Assert.AreSame(All<LapDirector>().Single(), e.director);
+            Assert.AreEqual("Daughter_Standing", e.daughter.Variant);
+            Assert.IsNotNull(e.torch);
+            Assert.IsNotNull(e.houseLights);
+            Assert.IsNotNull(e.hud);
+            Assert.IsNotNull(e.player);
+            Assert.AreEqual("drone_ending", e.drone.name);
+            Assert.AreEqual("breath_slow", e.breath.name);
+        }
+
         [Test] public void InBuildSettings_AsFirstScene()
         {
             Assert.Greater(EditorBuildSettings.scenes.Length, 0);

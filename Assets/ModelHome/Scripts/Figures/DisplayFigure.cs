@@ -200,7 +200,9 @@ namespace ModelHome
             var face = RestFaceForward;
             face.y = 0f;
             if (want.sqrMagnitude < 1e-6f || face.sqrMagnitude < 1e-6f) return;
-            transform.rotation = Quaternion.FromToRotation(face.normalized, want.normalized) * transform.rotation;
+            // yaw only: FromToRotation picks an arbitrary axis for a 180 deg turn and can flip the figure over
+            float yaw = Vector3.SignedAngle(face, want, Vector3.up);
+            transform.rotation = Quaternion.AngleAxis(yaw, Vector3.up) * transform.rotation;
         }
 
         public bool IsSeenBy(Camera cam) => isActiveAndEnabled && Visibility.IsSeen(seenRenderer, cam);

@@ -54,6 +54,18 @@ namespace ModelHome.Tests
             var face = f.FaceForward; face.y = 0;
             Assert.Greater(Vector3.Dot(face.normalized, Vector3.back), 0.98f, $"face {face}");
             Assert.AreEqual(new Vector3(2, 0, 1), f.transform.position);
+            Assert.Greater(f.Head.position.y, 1.0f, "a 180 deg turn must stay upright (rotate about world Y only)");
+        }
+
+        [Test] public void PlaceFacing_KeepsUpright_ForEveryTurnAngle()
+        {
+            var f = Spawn("Daughter_Standing");
+            for (int deg = 0; deg < 360; deg += 30)
+            {
+                var dir = Quaternion.AngleAxis(deg, Vector3.up) * Vector3.forward;
+                f.PlaceFacing(Vector3.zero, dir * 3f + Vector3.up * 1.5f);
+                Assert.Greater(f.Head.position.y, 1.0f, $"turn {deg}");
+            }
         }
 
         [Test] public void MissingChildren_DisableFeature_WithoutThrowing()

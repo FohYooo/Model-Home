@@ -20,7 +20,8 @@ namespace ModelHome
         public AudioClip drone;
         public AudioClip breath;
 
-        public const float SeenToBlink = 0.8f;
+        [Tooltip("Seconds the Daughter must be on screen before she blinks and the screen cuts (spec: 0.8)")]
+        public float seenToBlink = 0.8f;
         public const float FallbackAfter = 20f;
         public bool Finished { get; private set; }
         bool running;
@@ -63,7 +64,7 @@ namespace ModelHome
                 if (daughter.IsSeenBy(cam))
                 {
                     seenFor += Time.deltaTime;
-                    if (seenFor >= SeenToBlink) break;
+                    if (seenFor >= seenToBlink) break;
                 }
                 else
                 {

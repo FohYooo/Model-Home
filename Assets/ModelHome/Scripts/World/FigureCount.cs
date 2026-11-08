@@ -13,8 +13,8 @@ namespace ModelHome
 
         protected override void OnUse()
         {
+            it.ReportTaskDone();   // first: the checklist's "Done: ..." toast must not bury the count
             Say($"{(director ? director.VisibleFigureCount() : 0)} present.");
-            it.ReportTaskDone();
         }
     }
 }

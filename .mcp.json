@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ai-game-developer": {
+      "args": [
+        "port=26176",
+        "plugin-timeout=10000",
+        "client-transport=stdio",
+        "authorization=none",
+        "project=00815b0b"
+      ],
+      "command": "/Users/thomasschrauwen/Projects/Game-development/unity-playground/Library/mcp-server/osx-arm64/gamedev-mcp-server"
+    }
+  }
+}

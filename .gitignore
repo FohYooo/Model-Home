@@ -1,0 +1,18 @@
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
+Build/
+Builds/
+*.csproj
+*.sln
+.DS_Store
+MemoryCaptures/
+.vs/
+.idea/
+My project/
+Tools/blender/out/
+Assets/ModelHome/Textures/PolyHaven/**/*.jpg
+Assets/ModelHome/Textures/PolyHaven/**/*.png
+__pycache__/

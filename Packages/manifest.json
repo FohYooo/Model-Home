@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "com.unity.ugui": "2.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.ivanmurzak.unity.mcp": "1.7.1"
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.ivanmurzak",
+        "extensions.unity"
+      ]
+    }
+  ]
+}

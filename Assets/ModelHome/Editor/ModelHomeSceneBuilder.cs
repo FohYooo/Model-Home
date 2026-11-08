@@ -199,8 +199,10 @@ namespace ModelHome.EditorTools
             GraphicsSettings.lightsUseColorTemperature = true;
             var specs = new (string name, float intensity, float range, bool shadows)[]
             {
-                ("Light_FoyerLamp", 1.2f, 4f, false), ("Light_LivingLamp", 1.8f, 6f, true),
-                ("Light_StudyLamp", 1.4f, 5f, false), ("Light_KitchenPendant", 1.6f, 6f, true),
+                // ~1.45x the plan's values: under the graded, under-exposed camera the figures must still
+                // read under lamplight (eyes following you without the torch)
+                ("Light_FoyerLamp", 1.7f, 4.5f, false), ("Light_LivingLamp", 2.6f, 6.5f, true),
+                ("Light_StudyLamp", 2.0f, 5f, false), ("Light_KitchenPendant", 2.3f, 6.5f, true),
             };
             var lights = new List<Light>();
             foreach (var s in specs)

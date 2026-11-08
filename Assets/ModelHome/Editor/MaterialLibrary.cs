@@ -35,7 +35,7 @@ namespace ModelHome.EditorTools
             new Spec { Name = "M_Cloth_Shirt", PolyHaven = "fabric_pattern_07", Color = "#AFC4D9", DoubleSided = true },
             new Spec { Name = "M_Cloth_Knit", PolyHaven = "fabric_pattern_07", Color = "#E8E0D0", DoubleSided = true },
             new Spec { Name = "M_Cloth_Trousers", PolyHaven = "fabric_pattern_07", Color = "#3A3D42", DoubleSided = true },
-            new Spec { Name = "M_Cloth_Tee", PolyHaven = "fabric_pattern_07", Color = "#F2F2F0", DoubleSided = true },
+            new Spec { Name = "M_Cloth_Tee", PolyHaven = "fabric_pattern_07", Color = "#D9D7D1", DoubleSided = true }, // off-white: #F2F2F0 clipped to pure white in the torch at 0.6 m
             new Spec { Name = "M_Cloth_Blanket", PolyHaven = "fabric_pattern_07", Color = "#F4F1EA", DoubleSided = true },
             // flat materials
             new Spec { Name = "M_Counter_Marble", Color = "#E6E3DE", Smoothness = 0.72f },

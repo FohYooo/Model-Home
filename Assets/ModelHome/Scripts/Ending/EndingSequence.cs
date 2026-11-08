@@ -47,13 +47,16 @@ namespace ModelHome
             droneSource.volume = 0f;
             droneSource.Play();
             StartCoroutine(Ramp(droneSource, 0.6f, 8f));
+            torch.Locked = true;                       // F can't switch it off before she is seen
             StartCoroutine(torch.Sputter(2f, true));
 
-            daughter.gameObject.SetActive(true);
+            daughter.gameObject.SetActive(false);      // appears only once a clear spot behind the guard exists
             daughter.EyeTracking = true;
             daughter.BlinkOnGlanceAway = false;
             daughter.Breathing = false;
-            daughter.ApplyPose();
+            var body = daughter.GetComponent<Collider>();
+            if (body) body.enabled = false;            // she must never shove the guard
+            guardCollider = player.GetComponent<Collider>();
 
             var cam = Camera.main;
             float start = Time.time;
@@ -61,7 +64,7 @@ namespace ModelHome
             float fallbackCut = float.PositiveInfinity;
             while (true)
             {
-                if (daughter.IsSeenBy(cam))
+                if (FaceSeen(cam))
                 {
                     seenFor += Time.deltaTime;
                     if (seenFor >= seenToBlink) break;
@@ -89,29 +92,30 @@ namespace ModelHome
             Finished = true;
         }
 
-        void PlaceBehind(Camera cam)
+        /// <summary>Her face is really seen: eyes well inside the view, lit by the torch, and the figure
+        /// not occluded - not merely the crown of her head clipping a frame edge.</summary>
+        bool FaceSeen(Camera cam)
         {
-            var feet = player.transform.position;
-            var candidates = EndingPlacement.Candidates(feet, cam.transform.forward);
-            var chosen = candidates[candidates.Count - 1];
-            bool clear = false;
-            foreach (var c in candidates)
-            {
-                if (Physics.CheckCapsule(c + Vector3.up * 0.3f, c + Vector3.up * 1.1f, 0.25f,
-                        Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) continue;
-                chosen = c;
-                clear = true;
-                break;
-            }
-            if (!clear && !warned)
-            {
-                Debug.LogWarning("[ModelHome] no clear spot behind the guard; using the last candidate");
-                warned = true;
-            }
-            daughter.PlaceFacing(chosen, cam.transform.position);
+            if (!daughter.gameObject.activeInHierarchy) return false;
+            var eyes = daughter.EyeMidpoint;
+            return EndingSight.EyesInView(cam, eyes) && torch.IsLit(eyes) && daughter.IsSeenBy(cam);
         }
 
-        bool warned;
+        Collider guardCollider;
+
+        /// <summary>Re-places her behind the guard at the first clear spot; if none is clear this frame
+        /// she stays where she is (or hidden, before her first placement) and we retry next frame.</summary>
+        void PlaceBehind(Camera cam)
+        {
+            if (!EndingPlacement.FindClearSpot(player.transform.position, cam.transform.forward, guardCollider, out var spot))
+                return;
+            if (!daughter.gameObject.activeSelf)
+            {
+                daughter.gameObject.SetActive(true);
+                daughter.ApplyPose();
+            }
+            daughter.PlaceFacing(spot, cam.transform.position);
+        }
 
         void Cut(AudioSource droneSource)
         {

@@ -18,6 +18,8 @@ namespace ModelHome
         bool sputtering;
 
         public bool IsOn => spot != null && spot.enabled;
+        /// <summary>When set (the ending), F cannot switch the torch.</summary>
+        public bool Locked { get; set; }
 
         void Awake()
         {
@@ -51,6 +53,7 @@ namespace ModelHome
 
         public void Toggle()
         {
+            if (Locked) return;
             spot.enabled = !spot.enabled;
             if (clickClip) source.PlayOneShot(clickClip, 0.6f);
         }

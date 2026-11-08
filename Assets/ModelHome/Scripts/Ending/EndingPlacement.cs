@@ -16,5 +16,29 @@ namespace ModelHome
             Vector3 At(float yaw, float dist) => playerFeet + Quaternion.AngleAxis(yaw, Vector3.up) * back * dist;
             return new[] { At(0, 0.6f), At(45, 0.6f), At(-45, 0.6f), At(0, 0.45f), At(90, 0.45f), At(-90, 0.45f) };
         }
+
+        const float Radius = 0.25f;
+        const int IgnoreRaycastLayer = 2; // other display figures live here
+
+        /// <summary>First candidate whose 0.25 m capsule overlaps nothing but the guard's own collider
+        /// (walls, furniture and other figures all block). False when every spot is blocked - the caller
+        /// retries next frame instead of forcing a spot.</summary>
+        public static bool FindClearSpot(Vector3 playerFeet, Vector3 playerForward, Collider ignore, out Vector3 spot)
+        {
+            int mask = Physics.DefaultRaycastLayers | (1 << IgnoreRaycastLayer);
+            foreach (var c in Candidates(playerFeet, playerForward))
+            {
+                var hits = Physics.OverlapCapsule(c + Vector3.up * (Radius + 0.05f), c + Vector3.up * 1.1f, Radius,
+                    mask, QueryTriggerInteraction.Ignore);
+                bool blocked = false;
+                foreach (var h in hits)
+                    if (h != ignore) { blocked = true; break; }
+                if (blocked) continue;
+                spot = c;
+                return true;
+            }
+            spot = default;
+            return false;
+        }
     }
 }

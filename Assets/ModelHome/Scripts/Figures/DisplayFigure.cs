@@ -49,6 +49,9 @@ namespace ModelHome
 
         /// <summary>Face direction now (follows head tilt), world space.</summary>
         public Vector3 FaceForward => hasHead ? Head.rotation * faceInHead : Facing.Of(transform);
+        /// <summary>Midpoint between the eyes (falls back to the head / root).</summary>
+        public Vector3 EyeMidpoint => hasEyes ? (eyeL.position + eyeR.position) * 0.5f
+            : (hasHead ? Head.position : transform.position);
         /// <summary>Face direction with no head tilt, world space.</summary>
         public Vector3 RestFaceForward => hasHead ? transform.rotation * (headRestLocalRot * faceInHead) : Facing.Of(transform);
 
